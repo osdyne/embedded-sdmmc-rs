@@ -189,8 +189,10 @@ where
     OpenedDirAsFile,
     /// You can't open a file as a directory
     OpenedFileAsDir,
-    /// You can't delete a directory as a file
+    /// You can't delete a directory as a file [no longer being emitted]
     DeleteDirAsFile,
+    /// You can't delete a non-empty directory
+    DeleteNonEmptyDir,
     /// You can't close a volume with open files or directories
     VolumeStillInUse,
     /// You can't open a volume twice
@@ -253,6 +255,7 @@ impl<E: Debug> embedded_io::Error for Error<E> {
             Error::OpenedDirAsFile
             | Error::OpenedFileAsDir
             | Error::DeleteDirAsFile
+            | Error::DeleteNonEmptyDir
             | Error::BadCluster
             | Error::ConversionError
             | Error::UnterminatedFatChain => ErrorKind::InvalidData,
